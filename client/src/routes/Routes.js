@@ -25,7 +25,7 @@ const Routes = ({
                 }) => {
 
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("cookBookAuthToken");
     if (token) {
       const isExpiredToken = isExpired(jwt(token));
       if (isExpiredToken) {
