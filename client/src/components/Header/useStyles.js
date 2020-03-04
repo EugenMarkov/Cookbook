@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
     },
   },
   logo_wrapper : {
-    width: 200,
+    width: 260,
     [theme.breakpoints.down("sm")]: {
       width: 100,
     },

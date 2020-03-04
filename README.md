@@ -10,11 +10,14 @@ Author: Eugen Markov
 - React styles & libraries: Material-UI, material-table, axios
 
 #### Backend: 
-- Node.js, Express;
+- Node.js, Mongoose, Express;
 #### Database:
 - MongoDB;
+#### Authorization:
+- JSON Web Token;
 
-Application only for authorized user.
+Cookbook is application only for authorized user. 
+You can add, edit and delete recipes. 
 You can sort and search recipes by name, date, description.
 You can change profile information and password.
 
@@ -23,6 +26,7 @@ You can change profile information and password.
 - password: test1234
  
  Please, do not change test account password.
+ Registration of new customer is very simple.
  
  For start development front and back: "npm run dev"
 
