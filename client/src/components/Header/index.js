@@ -28,7 +28,7 @@ const Header = ({ isAuthenticated, recipesCounter }) => {
             </Link>
           </div>
           <Typography variant="h3" className={classes.title}>
-            BEST RECIPES OF THE WORLD
+           COOCKBOOK OF THE WORLD
           </Typography>
           <div>
             <LoginButton />

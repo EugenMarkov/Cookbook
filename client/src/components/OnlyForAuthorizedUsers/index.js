@@ -13,7 +13,7 @@ const OnlyForAuthorzedUsers = ({ isAuthenticated }) => {
   return isAuthenticated ? (
     <RecipesList /> ) : (
       <Container className={classes.container}>
-        <Typography variant="h3" className={classes.title}>Only for authorized users</Typography>
+        <Typography variant="h3" className={classes.title}>Cookbook only for authorized users</Typography>
         <Typography align="center">Log in, please.</Typography>
       </Container>
   );
