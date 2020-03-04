@@ -67,15 +67,14 @@ export default function ChangePasswordForm() {
             variant="outlined"
             inputProps={{
               type: "password",
-              minLength: 8,
-              maxLength: 20,
+              maxLength: 16,
               autoComplete: "current-password",
             }}
             onChange={event => setOldPasswordValue(event.target.value)}
-            validators={["required", "matchRegexp:^[a-zA-Z0-9]{8,20}$"]}
+            validators={["required", "matchRegexp:^[a-zA-Z0-9]{8,16}$"]}
             errorMessages={[
               "this field is required",
-              "Your password must be 8-20 characters, including only latin letters and numbers",
+              "password must be 8-16 characters, only latin letters and numbers",
             ]}
           />
           <TextValidator
@@ -87,15 +86,14 @@ export default function ChangePasswordForm() {
             variant="outlined"
             inputProps={{
               type: "password",
-              minLength: 8,
-              maxLength: 20,
+              maxLength: 16,
               autoComplete: "new-password",
             }}
             onChange={event => setNewPasswordValue(event.target.value)}
-            validators={["required", "matchRegexp:^[a-zA-Z0-9]{8,20}$"]}
+            validators={["required", "matchRegexp:^[a-zA-Z0-9]{8,16}$"]}
             errorMessages={[
               "this field is required",
-              "Your password must be 8-20 characters, including only latin letters and numbers",
+              "Your password must be 8-16 characters, including only latin letters and numbers",
             ]}
           />
           <TextValidator
@@ -107,19 +105,18 @@ export default function ChangePasswordForm() {
             variant="outlined"
             inputProps={{
               type: "password",
-              minLength: 8,
-              maxLength: 20,
+              maxLength: 16,
               autoComplete: "new-password",
             }}
             onChange={event => setConfirmationNewPasswordValue(event.target.value)}
             validators={[
               "required",
-              "matchRegexp:^[a-zA-Z0-9]{8,20}$",
+              "matchRegexp:^[a-zA-Z0-9]{8,16}$",
               "isPasswordMatch",
             ]}
             errorMessages={[
               "this field is required",
-              "Your password must be 8-20 characters, including only latin letters and numbers",
+              "Your password must be 8-16 characters, including only latin letters and numbers",
               "password mismatch",
             ]}
           />

@@ -19,8 +19,8 @@ const LoginContent = ({ handleOpen, submitLogin, open, message }) => {
     password: "",
   });
 
-  const handleChange = prop => event => {
-    setValues({ ...user, [prop]: event.target.value });
+  const handleChange = event => {
+    setValues({ ...user, [event.target.name]: event.target.value });
   };
 
   const handleClickShowPassword = () => {
@@ -56,9 +56,13 @@ const LoginContent = ({ handleOpen, submitLogin, open, message }) => {
               <TextValidator
                 label="Login or Email"
                 variant="outlined"
+                name="loginOrEmail"
                 value={user.loginOrEmail}
-                onChange={handleChange("loginOrEmail")}
+                onChange={(e) => handleChange(e)}
                 className={classes.textField}
+                inputProps={{
+                  maxLength: 22
+                }}
                 validators={[
                   "required",
                   `${"matchRegexp:^[a-zA-Z0-9]{3,22}" ||
@@ -66,7 +70,7 @@ const LoginContent = ({ handleOpen, submitLogin, open, message }) => {
                 ]}
                 errorMessages={[
                   "this field is required",
-                  "Your Log in must be 3-22 characters, including latin letters and numbers or use your Email",
+                  "login must be 3-22 characters (latin letters and numbers) or use email",
                 ]}
               />
 
@@ -74,8 +78,9 @@ const LoginContent = ({ handleOpen, submitLogin, open, message }) => {
                 className={classes.textField}
                 variant="outlined"
                 label="Password"
+                name="password"
                 value={user.password}
-                onChange={handleChange("password")}
+                onChange={(e) => handleChange(e)}
                 InputProps={{
                   type: showPassword ? "text" : "password",
                   endAdornment: (
@@ -90,14 +95,17 @@ const LoginContent = ({ handleOpen, submitLogin, open, message }) => {
                     </InputAdornment>
                   ),
                 }}
+                inputProps={{
+                  maxLength: 16
+                }}
                 validators={["required", "matchRegexp:^[a-zA-Z0-9]{8,16}$"]}
                 errorMessages={[
                   "this field is required",
-                  "Your password must be 8-16 characters, including only latin letters and numbers",
+                  "password must be 8-16 characters, only latin letters and numbers",
                 ]}
               />
               <p className={classes.text}>
-                Have not an account yet ? &nbsp;
+                Have not an account yet? &nbsp;
                 <Link to="/registration" onClick={handleOpen}>
                   <span className={classes.regLink}>Registration</span>
                 </Link>

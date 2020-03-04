@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import v4 from "uuid";
 import MaterialTable from "material-table";
-
 import Box from "@material-ui/core/Box";
 import Typography from "@material-ui/core/Typography";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
+import theme from "../../theme";
 import PreloaderAdaptive from "../Preloader/Adaptive";
 import useStyles from "./useStyles";
 
@@ -13,7 +12,10 @@ import RecipeAddModal from "./RecipeAddModal";
 import RecipeEditModal from "./RecipeEditModal";
 import RecipeDeleteModal from "./RecipeDeleteModal";
 
-const RecipesList = ({ recipes, isLoading }) => {
+import { recipesCleanErrorAndMessage } from "../../store/actions/recipes";
+
+
+const RecipesList = ({ recipes, isLoading, recipesCleanErrorAndMessage }) => {
   const [addModalIsOpened, setAddModalIsOpened] = useState(false);
   const [editModalIsOpened, setEditModalIsOpened] = useState(false);
   const [modalData, setModalData] = useState({
@@ -31,11 +33,16 @@ const RecipesList = ({ recipes, isLoading }) => {
       title: "Description",
       field: "description",
       type: "string",
-      render: rowData => ( rowData.description.reverse().map( item => {
+      render: rowData => ( rowData.description.map( (item, index) => {
         return (
-          <Typography key={v4()} className={classes.description}>
-            {item}
-          </Typography>
+          <div key={v4()}>
+            <Typography className={classes.description}>
+              {`recipe #${index + 1}`}
+            </Typography>
+            <Typography key={v4()} className={classes.description}>
+              {item}
+            </Typography>
+          </div>
         )}
       ))
     },
@@ -59,6 +66,7 @@ const RecipesList = ({ recipes, isLoading }) => {
     setAddModalIsOpened(false);
     setEditModalIsOpened(false);
     setDeleteModalIsOpened(false);
+    recipesCleanErrorAndMessage();
   };
 
   return (
@@ -74,7 +82,7 @@ const RecipesList = ({ recipes, isLoading }) => {
           data={recipes}
           actions={[
             {
-              icon: () => <AddCircleIcon />,
+              icon: "add",
               tooltip: "Add recipe",
               isFreeAction: true,
               onClick: () => {
@@ -97,6 +105,12 @@ const RecipesList = ({ recipes, isLoading }) => {
             },
           ]}
           title="Recipes"
+          options={{
+            headerStyle: {
+              backgroundColor: theme.palette.primary.light,
+              color: theme.palette.secondary.main,
+            }
+          }}
         />
       )}
 
@@ -120,4 +134,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(RecipesList);
+export default connect(mapStateToProps, { recipesCleanErrorAndMessage })(RecipesList);

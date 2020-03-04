@@ -3,10 +3,10 @@ import axios from "axios";
 const setAuthToken = token => {
   if (token) {
     axios.defaults.headers.common.Authorization = token;
-    localStorage.setItem("cookBookAuthToken", token);
+    localStorage.setItem("authTokenCookbook", token);
   } else {
     delete axios.defaults.headers.common.Authorization;
-    localStorage.removeItem("cookBookAuthToken");
+    localStorage.removeItem("authTokenCookbook");
   }
 };
 

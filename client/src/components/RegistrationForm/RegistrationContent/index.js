@@ -32,7 +32,10 @@ const RegistrationContent = ({
             value={newUserData.firstName}
             onChange={handleChange}
             className={classes.textField}
-            validators={["required", "matchRegexp:^[`'\"()A-Za-zd.s_-]{2,50}$"]}
+            inputProps={{
+              maxLength: 25,
+            }}
+            validators={["required", "matchRegexp:^[`'\"()A-Za-zd.s_-]{2,25}$"]}
             errorMessages={[
               "this field is required",
               "Your name must be more then 2 characters, including only latin letters",
@@ -45,7 +48,10 @@ const RegistrationContent = ({
             value={newUserData.lastName}
             onChange={handleChange}
             className={classes.textField}
-            validators={["matchRegexp:^[`'\"()A-Za-zd.s_-]{2,50}$", "required"]}
+            inputProps={{
+              maxLength: 25,
+            }}
+            validators={["matchRegexp:^[`'\"()A-Za-zd.s_-]{2,25}$", "required"]}
             errorMessages={[
               "Your name must be more then 2 characters, including only latin letters",
               "this field is required",
@@ -58,6 +64,9 @@ const RegistrationContent = ({
             value={newUserData.login}
             onChange={handleChange}
             className={classes.textField}
+            inputProps={{
+              maxLength: 22,
+            }}
             validators={["required", "matchRegexp:^[a-zA-Z0-9]{3,22}$"]}
             errorMessages={[
               "this field is required",

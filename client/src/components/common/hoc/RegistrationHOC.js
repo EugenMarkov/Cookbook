@@ -2,9 +2,9 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 
-export const AuthHOC = Component => {
+export const RegistrationHOC = ( Component ) => {
   const Wrapper = ({ isAuthenticated }) => {
-    if (isAuthenticated) {
+    if (!isAuthenticated){
       return <Component /> ;
     } else {
       return <Redirect to="/" /> ;
@@ -12,10 +12,10 @@ export const AuthHOC = Component => {
   };
 
   const mapStateToProps = state => {
-    return {
+    return{
       isAuthenticated: state.loginReducer.isAuthenticated,
-    };
+    }
   };
 
-  return connect(mapStateToProps)(Wrapper);
+  return connect(mapStateToProps)(Wrapper)
 };
