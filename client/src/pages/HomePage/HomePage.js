@@ -2,10 +2,9 @@ import React from "react";
 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import RecipesList from "../../components/RecipesList";
+import OnlyForAuthorizedUsers from "../../components/OnlyForAuthorizedUsers";
 import ScrollOnTop from "../../components/common/ScrollOnTop/ScrollOnTop";
 import BackToTop from "../../components/common/GoUpButton";
-// import PreloaderAdaptive from "../../components/Preloader/Adaptive";
 
 
 function HomePage() {
@@ -14,8 +13,7 @@ function HomePage() {
       <ScrollOnTop />
       <BackToTop />
       <Header />
-      {/*<PreloaderAdaptive />*/}
-      <RecipesList />
+      <OnlyForAuthorizedUsers />
       <Footer />
     </>
   );

@@ -28,10 +28,13 @@ exports.addRecipe = async (req, res, next) => {
 
   const newRecipe = await new Recipe(updatedRecipe);
   await newRecipe.save();
-
+  const newestRecipes = {"date": -1};
   Recipe.find({ customerId: req.user.id })
+    .sort(newestRecipes)
     .populate("customerId")
-    .then(recipes => res.json(recipes))
+    .then(recipes => res.status(200).json({
+      message: `Recipe "${newRecipe.name}" is successfully added to DB`,
+      recipes}))
     .catch(err =>
       res.status(400).json({
         message: `Error happened on server: "${err}" `
@@ -44,7 +47,7 @@ exports.updateRecipe = (req, res, next) => {
     .then( async recipe => {
       if (!recipe) {
         return res.status(400).json({
-          message: `Product with id "${req.params.id}" is not found.`
+          message: `Recipe with id "${req.params.id}" is not found.`
         });
       } else {
         const recipeData = {};
@@ -53,7 +56,6 @@ exports.updateRecipe = (req, res, next) => {
 
 
         const updatedRecipe = queryCreator(recipeData);
-        console.log(updatedRecipe);
 
         await Recipe.findOneAndUpdate(
           { _id: req.params.id },
@@ -62,7 +64,7 @@ exports.updateRecipe = (req, res, next) => {
         )
           .populate("customerId")
           .then(recipe => {
-            console.log(recipe);
+            Boolean(recipe);
           })
           .catch(err =>
             res.status(400).json({
@@ -70,9 +72,13 @@ exports.updateRecipe = (req, res, next) => {
             })
           );
 
+        const newestRecipes = {"date": -1};
         Recipe.find({ customerId: req.user.id })
+          .sort(newestRecipes)
           .populate("customerId")
-          .then(recipes => res.json(recipes))
+          .then(recipes => res.status(200).json({
+            message: `Recipe is successfully updated`,
+            recipes}))
           .catch(err =>
             res.status(400).json({
               message: `Error happened on server: "${err}" `
@@ -88,7 +94,9 @@ exports.updateRecipe = (req, res, next) => {
 };
 
 exports.getRecipes = (req, res, next) => {
+  const newestRecipes = {"date": -1};
   Recipe.find({ customerId: req.user.id })
+    .sort(newestRecipes)
     .populate("customerId")
     .then(recipes => res.send(recipes))
     .catch(err =>
@@ -108,7 +116,7 @@ exports.deleteRecipes = (req, res, next) => {
       const recipeToDelete = await Recipe.findOne({ _id: req.params.id });
 
       await Recipe.deleteOne({ _id: req.params.id })
-        .then(deletedCount => console.log(deletedCount)
+        .then(deletedCount => Boolean(deletedCount)
         )
         .catch(err =>
           res.status(400).json({
@@ -117,8 +125,11 @@ exports.deleteRecipes = (req, res, next) => {
         );
 
       Recipe.find({ customerId: req.user.id })
+      const newestRecipes = {"date": -1};
+      Recipe.find({ customerId: req.user.id })
+        .sort(newestRecipes)
         .populate("customerId")
-        .then(recipes =>  res.status(200).json({
+        .then(recipes => res.status(200).json({
             message: `Recipe "${recipeToDelete.name}" is successfully deleted from DB`,
           recipes}))
         .catch(err =>

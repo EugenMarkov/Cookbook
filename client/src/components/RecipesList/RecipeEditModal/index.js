@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {connect} from "react-redux";
-import jwt from "jwt-decode";
 
 import Backdrop from "@material-ui/core/Backdrop";
 import Button from "@material-ui/core/Button";
@@ -17,25 +16,21 @@ import { recipesEditItem } from "../../../store/actions/recipes";
 import useStyles from "./useStyles";
 
 
-const RecipeEditModal = ({ recipeItem, recipes, isOpen, isLoading, error, closeModalHandler, recipesEditItem }) => {
+const RecipeEditModal = ({ recipeItem, isOpen, isLoading, error, message, closeModalHandler, recipesEditItem }) => {
   const classes = useStyles();
-
   const [recipeInfo, setRecipeInfo] = useState(
     {
       name: recipeItem.name,
       description: recipeItem.description.join(".   "),
-      customerId: jwt(localStorage.getItem("authToken")).id,
+      customerId: recipeItem.customerId._id,
     });
 
   const handleRecipeInfo = event => {
     setRecipeInfo({ ...recipeInfo, [event.target.name]: event.target.value });
   };
-  const id = recipes.filter(item => item.date === recipeItem.date)[0]._id;
-  console.log(recipeItem);
-  console.log(recipeInfo);
-  console.log(id);
+
   const submitHandler = () => {
-    recipesEditItem(id, recipeInfo);
+    recipesEditItem(recipeItem._id, recipeInfo);
   };
 
   const modal = () => {
@@ -70,31 +65,17 @@ const RecipeEditModal = ({ recipeItem, recipes, isOpen, isLoading, error, closeM
               className={classes.inputBox}
               onSubmit={submitHandler}
             >
-              <TextValidator
-                label="Recipe name"
-                variant="standard"
-                disabled
-                name="name"
-                inputProps={{
-                  maxLength: 25,
-                }}
-                value={recipeInfo.name}
-                onChange={(e) => handleRecipeInfo(e)}
-                className={classes.input}
-                validators={["required"]}
-                errorMessages={["This field is required"]}
-              />
+              <Typography component="h3" align="center" className={classes.message}>
+                {recipeInfo.name}
+              </Typography>
               <TextValidator
                 id="description"
                 label="Description"
                 name="description"
                 variant="outlined"
                 multiline
-                rows="5"
+                rows="10"
                 value={recipeInfo.description}
-                inputProps={{
-                  maxLength: 250,
-                }}
                 onChange={(e) => handleRecipeInfo(e)}
                 className={classes.input}
                 validators={["required"]}
@@ -112,6 +93,11 @@ const RecipeEditModal = ({ recipeItem, recipes, isOpen, isLoading, error, closeM
                   {error.message}
                 </Typography>
               )}
+              {message && (
+                <Typography component="h3" align="center" className={classes.message}>
+                  {message}
+                </Typography>
+              )}
             </ValidatorForm>
           </Box>
         </Fade>
@@ -126,8 +112,8 @@ const RecipeEditModal = ({ recipeItem, recipes, isOpen, isLoading, error, closeM
 function mapStateToProps(state) {
   return {
     isLoading: state.recipesReducer.isLoading,
-    recipes: state.recipesReducer.recipes,
     error: state.recipesReducer.error,
+    message: state.recipesReducer.message,
   };
 }
 

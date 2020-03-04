@@ -17,14 +17,14 @@ import { recipesAddItem } from "../../../store/actions/recipes";
 import useStyles from "./useStyles";
 
 
-const RecipeAddModal = ({ isOpen, isLoading, error, closeModalHandler, recipesAddItem }) => {
+const RecipeAddModal = ({ isOpen, isLoading, error, message, closeModalHandler, recipesAddItem }) => {
   const classes = useStyles();
 
   const [recipeInfo, setRecipeInfo] = useState(
     {
       name: "",
       description: "",
-      customerId: jwt(localStorage.getItem("authToken")).id,
+      customerId: jwt(localStorage.getItem("authTokenCookbook")).id,
     });
 
   const handleRecipeInfo = event => {
@@ -84,7 +84,7 @@ const RecipeAddModal = ({ isOpen, isLoading, error, closeModalHandler, recipesAd
                 size="small"
                 variant="outlined"
                 multiline
-                rows="5"
+                rows="10"
                 value={recipeInfo.description}
                 onChange={(e) => handleRecipeInfo(e)}
                 className={classes.input}
@@ -103,6 +103,11 @@ const RecipeAddModal = ({ isOpen, isLoading, error, closeModalHandler, recipesAd
                   {error.message}
                 </Typography>
               )}
+              {message && (
+                <Typography component="h3" align="center" className={classes.message}>
+                  {message}
+                </Typography>
+              )}
             </ValidatorForm>
           </Box>
         </Fade>
@@ -118,6 +123,7 @@ function mapStateToProps(state) {
   return {
     isLoading: state.recipesReducer.isLoading,
     error: state.recipesReducer.error,
+    message: state.recipesReducer.message,
   };
 }
 

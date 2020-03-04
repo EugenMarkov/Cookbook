@@ -101,6 +101,13 @@ export const recipesEditItem = (id, updatedRecipe) => dispatch => {
     });
 };
 
+
+export const recipesCleanErrorAndMessage = () => {
+  return {
+    type: constants.RECIPES_CLEAN_ERROR_AND_MESSAGE,
+  };
+};
+
 export const recipesLogOut = () => {
   return {
     type: constants.RECIPES_LOG_OUT,

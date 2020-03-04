@@ -72,7 +72,7 @@ const formValidationRules = [
     method: "isLength",
     validWhen: true,
     args: [{ min: 3, max: 22 }],
-    message: "Login must be between 3 and 10 characters"
+    message: "Login must be between 3 and 22 characters"
   },
   {
     field: "loginOrEmail",
@@ -97,8 +97,8 @@ const formValidationRules = [
     field: "password",
     method: "isLength",
     validWhen: true,
-    args: [{ min: 7, max: 30 }],
-    message: "Password must be between 7 and 30 characters"
+    args: [{ min: 7, max: 25 }],
+    message: "Password must be between 7 and 25 characters"
   },
   {
     field: "newPassword",
@@ -117,8 +117,8 @@ const formValidationRules = [
     field: "newPassword",
     method: "isLength",
     validWhen: true,
-    args: [{ min: 7, max: 30 }],
-    message: "Password must be between 7 and 30 characters"
+    args: [{ min: 7, max: 25 }],
+    message: "Password must be between 7 and 25 characters"
   },
   {
     field: "isAdmin",

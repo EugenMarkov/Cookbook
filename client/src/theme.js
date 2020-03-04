@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import { indigo, grey } from '@material-ui/core/colors';
+import { purple, grey } from '@material-ui/core/colors';
 
 const theme = createMuiTheme({
 
@@ -20,15 +20,15 @@ const theme = createMuiTheme({
   },
   palette: {
     primary: {
-      main: indigo[700], // main theme color
-      light: indigo[100], // footer bg
-      dark: indigo[900], // hover btn
+      main: purple[700],
+      light: purple[100],
+      dark: purple[800],
     },
     secondary: {
-      main: grey[700], // main grey
-      dark: grey[800], // black
-      medium: grey[500], // medium
-      light: grey[200], // maybe
+      main: grey[700],
+      dark: grey[800],
+      medium: grey[500],
+      light: grey[200],
     },
   },
   spacing: 8,
@@ -66,25 +66,26 @@ const theme = createMuiTheme({
     MuiTooltip: {
       tooltip: {
         fontSize: "13px",
-        backgroundColor: indigo[700],
+        backgroundColor: purple[700],
       },
       arrow: {
-        color: indigo[700],
+        color: purple[700],
       },
     },
     MuiIconButton: {
       root: {
+        color: purple[700],
         "&:hover": {
-          backgroundColor: indigo[100],
+          backgroundColor: purple[100],
         },
       },
     },
 
     MuiFab: {
       secondary: {
-        backgroundColor: indigo[700],
+        backgroundColor: purple[700],
         "&:hover": {
-          backgroundColor: indigo[900],
+          backgroundColor: purple[800],
         },
       },
     },
@@ -97,22 +98,22 @@ const theme = createMuiTheme({
       text: {
         color: grey[700],
         "&:hover": {
-          color: indigo[900],
-          backgroundColor: indigo[100],
+          color: purple[800],
+          backgroundColor: purple[100],
         },
       },
       contained: {
         color: "white",
-        backgroundColor: indigo[700],
+        backgroundColor: purple[700],
         "&:hover": {
-          backgroundColor: indigo[900],
+          backgroundColor: purple[800],
         },
       },
       outlined: {
-        color: indigo[700],
+        color: purple[700],
         "&:hover": {
-          color: indigo[900],
-          backgroundColor: indigo[100]
+          color: purple[800],
+          backgroundColor: purple[100]
         },
       },
     },
@@ -120,13 +121,6 @@ const theme = createMuiTheme({
       outlined: {
         fontWeight: 800,
         backgroundColor: "white",
-      },
-    },
-    MuiExpansionPanelSummary: {
-      content: {
-        justifyContent: "space-between",
-        alignItems: "center",
-        margin: 0,
       },
     },
   },

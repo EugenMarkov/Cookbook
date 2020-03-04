@@ -1,31 +1,23 @@
-import React, {useEffect} from "react";
-import {Switch, Route, Redirect} from "react-router-dom";
-import {connect} from "react-redux";
+import React, { useEffect } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
 import jwt from "jwt-decode";
 
 import HomePage from "../pages/HomePage/HomePage";
 import ProfilePage from "../pages/ProfilePage/ProfilePage";
 import RegistrationPage from "../pages/RegistrationPage/RegistrationPage";
-import {AuthHOC} from '../components/common/hoc/AuthHOC';
+import { AuthHOC } from "../components/common/hoc/AuthHOC";
+import { RegistrationHOC } from "../components/common/hoc/RegistrationHOC";
 import setAuthToken from "../components/common/setAuthToken";
 import isExpired from "../components/common/isExpired/isExpired";
 import Preloader from "../components/Preloader";
 
-import { getUser, logOut, preloaderClose, userFromJwt, } from "../store/actions/loginActions";
+import { getUser, logOut, preloaderClose, userFromJwt } from "../store/actions/loginActions";
 import { getRecipes } from "../store/actions/recipes";
 
-
-const Routes = ({
-                  preloaderClose,
-                  preloader,
-                  userFromJwt,
-                  logOut,
-                  getRecipes,
-                  getUser,
-                }) => {
-
+const Routes = ({ preloaderClose, preloader, userFromJwt, logOut, getRecipes, getUser }) => {
   useEffect(() => {
-    const token = localStorage.getItem("authToken");
+    const token = localStorage.getItem("authTokenCookbook");
     if (token) {
       const isExpiredToken = isExpired(jwt(token));
       if (isExpiredToken) {
@@ -49,10 +41,10 @@ const Routes = ({
     <Switch>
       <Route exact path="/" component={HomePage} />
       <Route path="/profile" component={AuthHOC(ProfilePage)} />
-      <Route path="/registration" component={RegistrationPage} />
+      <Route path="/registration" component={RegistrationHOC(RegistrationPage)} />
       <Redirect to="/" />
     </Switch>
-  )
+  );
 };
 
 function mapStateToProps(state) {

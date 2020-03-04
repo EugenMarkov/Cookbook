@@ -20,19 +20,10 @@ const useStyles = makeStyles(theme => ({
     top: "2%",
     right: "4%",
   },
-  inputBox: {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  input: {
-    width: 250,
-    margin: theme.spacing(1),
-  },
   btn :{
     display: "flex",
     justifyContent: "center",
-    margin: "8px auto 26px"
+    margin: "20px auto 26px"
   }
 }));
 

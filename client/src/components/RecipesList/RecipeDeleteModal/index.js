@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {connect} from "react-redux";
 
 import Backdrop from "@material-ui/core/Backdrop";
@@ -17,8 +17,6 @@ import useStyles from "./useStyles";
 
 const RecipeDeleteModal = ({ recipeItem, isOpen, isLoading, error, message, closeModalHandler, recipesDeleteItem }) => {
   const classes = useStyles();
-
-  console.log(recipeItem);
 
   const submitHandler = () => {
     recipesDeleteItem(recipeItem._id);
@@ -51,13 +49,15 @@ const RecipeDeleteModal = ({ recipeItem, isOpen, isLoading, error, message, clos
             >
               <CloseIcon />
             </IconButton>
+            { !message && (
             <Typography component="h3" align="center" className={classes.message}>
               {`Are you sure to delete ${recipeItem.name} from recipes list?`}
             </Typography>
+            )}
             {isLoading ? (
               <PreloaderAdaptiveSmall />
               ) : (
-                <Button variant="contained" onClick={() => submitHandler()} className={classes.btn}>
+                <Button variant="contained" onClick={() => submitHandler()} className={classes.btn} disabled={Boolean(message)}>
                   Delete
                 </Button>
               )}
